@@ -1,0 +1,1018 @@
+<!DOCTYPE html><html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Najwa Santang Wangi — Tactile Portfolio</title>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&amp;family=Fredoka:wght@600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Silkscreen:wght@700&amp;display=swap" rel="stylesheet">
+<!-- Tailwind Configuration -->
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Fredoka', 'system-ui', 'sans-serif'],
+            pixel: ['Silkscreen', 'monospace'],
+            hand: ['Caveat', 'cursive'],
+            body: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            mat: {
+              DEFAULT: '#1D63B8',
+              dark: '#144B91',
+              grid: 'rgba(255, 255, 255, 0.18)',
+              gridBold: 'rgba(255, 255, 255, 0.35)',
+            },
+            desk: '#8F5E36',
+            deskBorder: '#5D3C1F',
+            paper: '#FDFBF7',
+            clipPink: '#FF2D78',
+            folderYellow: '#FFA800',
+            cyanSelect: '#2563EB',
+          },
+          boxShadow: {
+            hard: '4px 4px 0 #18181B',
+            hardLg: '8px 8px 0 #18181B',
+            hardSm: '2px 2px 0 #18181B',
+            paper3d: '0 20px 40px -15px rgba(13, 38, 77, 0.45), 0 4px 10px rgba(0,0,0,0.1)',
+            clipShadow: '0 6px 12px rgba(255, 45, 120, 0.35)',
+          }
+        }
+      }
+    }
+  </script>
+<!-- BEGIN: Custom Visual Theme Styles -->
+<style data-purpose="cutting-mat-background">
+    /* Realistic cutting mat surface with grid pattern */
+    .bg-cutting-mat {
+      background-color: #1a58a6;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.16) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.16) 1px, transparent 1px),
+        linear-gradient(to right, rgba(255, 255, 255, 0.35) 2px, transparent 2px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.35) 2px, transparent 2px);
+      background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
+    }
+
+    /* Graph paper grid for notes */
+    .bg-graph-paper {
+      background-color: #ffffff;
+      background-image: 
+        linear-gradient(to right, rgba(74, 144, 226, 0.12) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(74, 144, 226, 0.12) 1px, transparent 1px);
+      background-size: 16px 16px;
+    }
+  </style>
+<style data-purpose="tactile-paper-effects">
+    /* Torn paper edge effect */
+    .torn-edge-bottom {
+      --mask: radial-gradient(11px at 50% calc(100% - 7px), #000 98%, #0000 101%) 0 calc(100% - 10px)/20px 20px repeat-x,
+              radial-gradient(11px at 50% calc(100% + 7px), #0000 98%, #000 101%) 10px 100%/20px 20px repeat-x;
+      -webkit-mask: var(--mask);
+      mask: var(--mask);
+    }
+
+    /* Masking tape strip */
+    .masking-tape {
+      background: rgba(255, 248, 220, 0.88);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+      border-left: 2px dashed rgba(210, 180, 140, 0.6);
+      border-right: 2px dashed rgba(210, 180, 140, 0.6);
+    }
+
+    /* Pixel typography outline */
+    .pixel-text-shadow {
+      text-shadow: 
+        -2px -2px 0 #fff,
+        2px -2px 0 #fff,
+        -2px 2px 0 #fff,
+        2px 2px 0 #fff,
+        4px 4px 0 #18181B;
+    }
+
+    .pixel-3d-blue {
+      text-shadow:
+        -3px -3px 0 #ffffff,
+        3px -3px 0 #ffffff,
+        -3px 3px 0 #ffffff,
+        3px 3px 0 #ffffff,
+        0 6px 0 #1D4ED8,
+        0 10px 14px rgba(29, 78, 216, 0.4);
+    }
+
+    /* Draggable tactile classes */
+    .tactile-draggable {
+      touch-action: none;
+      user-select: none;
+      cursor: grab;
+      position: relative;
+      will-change: transform;
+      transition: box-shadow 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .tactile-draggable:hover {
+      box-shadow: 12px 16px 28px rgba(15, 23, 42, 0.25), 6px 6px 0 #18181B !important;
+    }
+
+    .tactile-draggable.is-dragging {
+      cursor: grabbing !important;
+      transition: none !important;
+      z-index: 1000 !important;
+      box-shadow: 20px 28px 45px rgba(15, 23, 42, 0.35), 8px 10px 0 #18181B !important;
+      opacity: 0.97;
+    }
+
+    .tactile-draggable.is-settling {
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease-out !important;
+    }
+
+    /* Floating drag badge pill */
+    .drag-hint-badge {
+      opacity: 0;
+      transform: translateY(4px) scale(0.9);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      pointer-events: none;
+    }
+
+    .tactile-draggable:hover .drag-hint-badge {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .tactile-draggable.is-dragging .drag-hint-badge {
+      opacity: 0;
+    }
+
+    /* Reset button pill */
+    .tactile-reset-btn {
+      opacity: 0;
+      transform: scale(0.85);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      pointer-events: auto;
+    }
+    .tactile-draggable.is-moved .tactile-reset-btn {
+      opacity: 1;
+      transform: scale(1);
+    }
+  </style>
+<!-- END: Custom Visual Theme Styles -->
+</head>
+<body class="bg-cutting-mat text-slate-800 font-body antialiased min-h-screen border-[14px] md:border-[22px] border-[#784620] relative selection:bg-pink-500 selection:text-white pb-16">
+<!-- Global Floating Desk Reset Button Bar -->
+<div class="fixed bottom-4 right-4 z-50 transition-all duration-300 transform translate-y-16 opacity-0 pointer-events-none" id="global-reset-bar">
+<button class="bg-yellow-400 hover:bg-yellow-300 text-slate-900 border-2 border-slate-900 px-4 py-2 rounded-full font-display font-bold text-xs shadow-hard flex items-center gap-2 pointer-events-auto active:translate-y-0.5 transition-all" id="global-reset-btn" type="button">
+<span>↺</span> Rapikan Meja Kerja (Reset Posisi)
+  </button>
+</div>
+<!-- BEGIN: Floating Sticky Navbar -->
+<header class="sticky top-4 z-50 px-4 flex justify-center">
+<nav class="bg-white/95 backdrop-blur border-2 border-slate-900 rounded-full px-5 py-2.5 shadow-hard flex items-center justify-between gap-4 md:gap-8 max-w-4xl w-full">
+<!-- Logo Pill Badge -->
+<a class="flex items-center gap-2 group" href="#hero">
+<span class="w-3.5 h-3.5 rounded-full bg-pink-500 animate-ping"></span>
+<span class="font-display font-extrabold text-lg text-slate-900 tracking-tight group-hover:text-blue-600 transition-colors">
+          NAJWA.SW <span class="text-pink-500 text-sm">✦</span>
+</span>
+</a>
+<!-- Navigation Links -->
+<div class="hidden sm:flex items-center gap-6 font-display font-bold text-sm text-slate-700">
+<a class="hover:text-blue-600 transition-colors" href="#hero">Home</a>
+<a class="hover:text-blue-600 transition-colors" href="#about">About &amp; Exp</a>
+<a class="hover:text-blue-600 transition-colors" href="#projects">Projects</a>
+<a class="hover:text-blue-600 transition-colors" href="#skills">Skills</a>
+</div>
+<!-- Action Button -->
+<a class="bg-yellow-400 hover:bg-yellow-300 text-slate-900 font-display font-bold text-xs md:text-sm px-4 py-1.5 rounded-full border-2 border-slate-900 shadow-hardSm active:translate-x-0.5 active:translate-y-0.5 transition-all" href="#contact">
+        Contact Me ✂
+      </a>
+</nav>
+</header>
+<!-- END: Floating Sticky Navbar -->
+<main class="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-16 space-y-24">
+<!-- BEGIN: Hero Section -->
+<section class="relative pt-6 md:pt-10" id="hero">
+<!-- Decorative Stationary Elements -->
+<!-- Top Left 3D Folder -->
+<div class="absolute -top-4 -left-3 md:-left-8 z-30 transform -rotate-12 transition-transform hover:rotate-0 duration-300 pointer-events-none sm:pointer-events-auto">
+<div class="relative w-20 h-16 md:w-28 md:h-22">
+<div class="absolute inset-0 bg-yellow-400 rounded-xl border-3 border-slate-900 shadow-hard transform -rotate-3"></div>
+<div class="absolute inset-x-2 top-2 bottom-1 bg-amber-300 rounded-lg border-2 border-slate-900 flex items-center justify-center font-display font-bold text-xs text-amber-900">
+            PORTFOLIO
+          </div>
+<div class="absolute -top-2 left-3 w-10 h-4 bg-yellow-500 rounded-t-md border-t-2 border-l-2 border-r-2 border-slate-900"></div>
+</div>
+</div>
+<!-- Top Right Pink Metal Binder Clip -->
+<div class="absolute -top-6 right-10 md:right-24 z-40 flex flex-col items-center">
+<!-- Clip handles (silver wire loops) -->
+<div class="w-8 h-10 border-4 border-slate-300 rounded-t-full shadow-sm mb-[-6px]"></div>
+<!-- Clip solid pink body -->
+<div class="w-16 h-8 bg-clipPink border-2 border-slate-900 rounded shadow-hard flex items-center justify-center">
+<div class="w-10 h-1.5 bg-pink-700/50 rounded-full"></div>
+</div>
+</div>
+<!-- Top Ruler Accent -->
+<div class="hidden lg:block absolute -top-8 right-0 transform rotate-45 w-40 h-8 bg-amber-200/90 border-2 border-slate-800 rounded shadow-md z-10 flex items-end px-2 pb-0.5 text-[8px] font-mono select-none">
+        | | | | | | | | | | | | | | 15cm
+      </div>
+<!-- Giant Paper Sheet Card -->
+<div class="bg-graph-paper rounded-2xl md:rounded-3xl border-4 border-slate-900 shadow-paper3d relative p-6 sm:p-10 md:p-14 overflow-hidden">
+<!-- Spiral notebook perforation strip along top -->
+<div class="absolute top-2 left-6 right-6 flex justify-between pointer-events-none opacity-40">
+<span class="w-3.5 h-3.5 rounded-full bg-slate-900"></span>
+<span class="w-3.5 h-3.5 rounded-full bg-slate-900"></span>
+<span class="w-3.5 h-3.5 rounded-full bg-slate-900"></span>
+<span class="w-3.5 h-3.5 rounded-full bg-slate-900"></span>
+<span class="w-3.5 h-3.5 rounded-full bg-slate-900"></span>
+<span class="w-3.5 h-3.5 rounded-full bg-slate-900"></span>
+<span class="w-3.5 h-3.5 rounded-full bg-slate-900"></span>
+<span class="w-3.5 h-3.5 rounded-full bg-slate-900"></span>
+<span class="w-3.5 h-3.5 rounded-full bg-slate-900"></span>
+<span class="w-3.5 h-3.5 rounded-full bg-slate-900"></span>
+<span class="w-3.5 h-3.5 rounded-full bg-slate-900"></span>
+</div>
+<!-- Design Software Bounding Box Canvas -->
+<div class="relative mt-4 border-2 border-blue-600 rounded-xl p-6 sm:p-10 md:p-12 bg-white/70 backdrop-blur-xs">
+<!-- Bounding Box Transform Anchor Handles -->
+<span class="absolute -top-2 -left-2 w-3.5 h-3.5 bg-white border-2 border-blue-600 shadow-sm"></span>
+<span class="absolute -top-2 left-1/2 -translate-x-1/2 w-3.5 h-3.5 bg-white border-2 border-blue-600 shadow-sm"></span>
+<span class="absolute -top-2 -right-2 w-3.5 h-3.5 bg-white border-2 border-blue-600 shadow-sm"></span>
+<span class="absolute top-1/2 -left-2 -translate-y-1/2 w-3.5 h-3.5 bg-white border-2 border-blue-600 shadow-sm"></span>
+<span class="absolute top-1/2 -right-2 -translate-y-1/2 w-3.5 h-3.5 bg-white border-2 border-blue-600 shadow-sm"></span>
+<span class="absolute -bottom-2 -left-2 w-3.5 h-3.5 bg-white border-2 border-blue-600 shadow-sm"></span>
+<span class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-3.5 h-3.5 bg-white border-2 border-blue-600 shadow-sm"></span>
+<span class="absolute -bottom-2 -right-2 w-3.5 h-3.5 bg-white border-2 border-blue-600 shadow-sm"></span>
+<!-- Rotation Handle Stem -->
+<div class="absolute -top-7 left-1/2 -translate-x-1/2 flex flex-col items-center">
+<div class="w-3.5 h-3.5 rounded-full bg-white border-2 border-blue-600"></div>
+<div class="w-0.5 h-3.5 bg-blue-600"></div>
+</div>
+<!-- Hero Typography Display -->
+<div class="text-center relative py-4 sm:py-8">
+<!-- Stacked "PORT" + Pixel Year Tag -->
+<div class="flex flex-wrap items-center justify-center gap-3 sm:gap-6">
+<h1 class="font-display font-extrabold text-6xl sm:text-8xl md:text-9xl tracking-tight text-blue-600 pixel-3d-blue uppercase select-none">
+                PORT
+              </h1>
+<!-- Pink pixel badge for Year/Batch -->
+<div class="bg-pink-500 text-white font-pixel px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg border-2 border-slate-900 shadow-hard transform rotate-6 animate-pulse">
+<span class="text-xs sm:text-base md:text-lg">&nbsp;2026</span>
+</div>
+</div>
+<!-- "FOLIO" with Star Accent in the "O" -->
+<div class="flex items-center justify-center relative mt-[-10px] sm:mt-[-25px]">
+<div class="font-display font-extrabold text-6xl sm:text-8xl md:text-9xl tracking-tight text-blue-600 pixel-3d-blue uppercase relative inline-block select-none">
+                FOL<span class="relative inline-block">I<span class="inline-block transform translate-y-1">O</span><span class="absolute inset-0 flex items-center justify-center text-pink-400 text-3xl sm:text-5xl md:text-6xl animate-spin" style="animation-duration: 9s;">✦</span></span>
+</div>
+<!-- Yellow Vector Mouse Cursor Graphic -->
+<div class="absolute -bottom-4 right-1/4 sm:right-1/3 transform translate-x-12 translate-y-6 pointer-events-none">
+<svg class="w-10 h-10 md:w-14 md:h-14 drop-shadow-hard" fill="none" viewBox="0 0 24 24">
+<path d="M4 3L18 13L11.5 14L8.5 21L4 3Z" fill="#FACC15" stroke="#0F172A" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<!-- Subtitle and Candidate Role -->
+<div class="mt-6 md:mt-8 flex flex-col items-center">
+<div class="inline-block bg-white border-2 border-slate-900 px-6 py-2 rounded-full shadow-hardSm">
+<p class="font-display font-bold text-sm sm:text-lg md:text-xl text-slate-800 tracking-wide">
+                  NAJWA SANTANG WANGI ✦ INFORMATICS &amp; CREATIVE DESIGN
+                </p>
+</div>
+
+</div>
+<!-- Mini Bullet Tags (Scrapbook Badges) -->
+<div class="mt-8 flex flex-wrap justify-center gap-2.5 sm:gap-4 max-w-2xl mx-auto">
+<span class="bg-blue-50 text-blue-800 border border-blue-200 px-3 py-1 rounded-md text-xs font-semibold shadow-xs">
+                ■ Informatics Student
+              </span>
+<span class="bg-emerald-50 text-emerald-800 border border-emerald-200 px-3 py-1 rounded-md text-xs font-semibold shadow-xs">
+                ■ Event Organizer &amp; Leader
+              </span>
+
+<span class="bg-amber-50 text-amber-800 border border-amber-200 px-3 py-1 rounded-md text-xs font-semibold shadow-xs">
+                ■ Adaptive &amp; Collaborative
+              </span>
+</div>
+</div>
+</div>
+<!-- Sticky Note Mini Clipboard Note (Corner Element) - DRAGGABLE -->
+<div class="tactile-draggable hidden sm:block absolute bottom-6 right-6 w-36 bg-amber-50 border-2 border-slate-900 p-3 rounded-lg shadow-hard z-30 group" data-base-rotation="6" data-draggable="true" style="transform: translate3d(0px, 0px, 0px) rotate(6deg);">
+<div class="w-8 h-2 bg-pink-500/70 mx-auto -mt-4 mb-2 rounded pointer-events-none"></div>
+<div class="drag-hint-badge absolute -top-5 -right-2 bg-slate-900 text-yellow-300 font-pixel text-[8px] px-2 py-0.5 rounded shadow-sm border border-yellow-400">
+  ✦ drag me!
+</div>
+<button class="tactile-reset-btn absolute -bottom-3 -right-2 bg-white text-slate-800 font-pixel text-[8px] px-1.5 py-0.5 rounded-full border border-slate-900 shadow-sm hover:bg-yellow-300" title="Reset posisi" type="button">
+  ↺ reset
+</button>
+<p class="font-pixel text-[9px] uppercase text-slate-500 pointer-events-none">QUICK NOTE:</p>
+<p class="font-hand text-sm font-bold text-slate-800 leading-tight pointer-events-none">Ready for creative challenges &amp; tech impact! ✨</p>
+</div>
+</div>
+<!-- Tactile Status Bar Under Sheet (Desk Mat Pill) -->
+<div class="mt-4 bg-slate-900/80 backdrop-blur-md text-white border-2 border-white/30 rounded-2xl p-3 px-6 shadow-xl flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm font-display tracking-wider">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+<span class="font-bold">STATUS:</span> OPEN TO OPPORTUNITIES
+        </div>
+<div class="flex flex-wrap items-center gap-4 text-slate-300 text-xs">
+<span>📍 Bekasi, Indonesia</span>
+<span class="hidden md:inline">|</span>
+<span>🎓 Institut Teknologi PLN</span>
+<span class="hidden md:inline">|</span>
+<a class="hover:text-yellow-400 transition-colors underline decoration-yellow-400 underline-offset-2" href="mailto:najwasantangwangi@gmail.com">najwasantangwangi@gmail.com</a>
+</div>
+</div>
+</section>
+<!-- END: Hero Section -->
+<!-- BEGIN: About & Experience Section -->
+<section class="relative" id="about">
+<!-- Big Wooden Clipboard Container -->
+<div class="bg-[#B88655] rounded-3xl p-4 sm:p-8 md:p-10 border-4 border-[#523316] shadow-2xl relative">
+<!-- Metal Clamp Mechanism at Top of Wooden Board -->
+<div class="absolute -top-7 left-1/2 -translate-x-1/2 flex flex-col items-center z-30">
+<div class="w-14 h-6 border-4 border-slate-400 bg-slate-200 rounded-t-xl"></div>
+<div class="w-36 sm:w-48 h-8 bg-gradient-to-b from-slate-200 via-slate-300 to-slate-400 border-2 border-slate-800 rounded-md shadow-md flex items-center justify-center">
+<span class="w-8 h-2 bg-slate-700/40 rounded-full"></span>
+</div>
+</div>
+<!-- Sheet of White Paper on Clipboard -->
+<div class="bg-paper rounded-2xl p-6 sm:p-10 border-2 border-slate-900/20 shadow-inner relative mt-4">
+<!-- Section Title Ribbon -->
+<div class="flex flex-wrap items-center justify-between border-b-2 border-slate-200 pb-4 mb-8">
+<div class="flex items-center gap-3">
+<span class="text-3xl">📂</span>
+<h2 class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 tracking-tight">
+                ABOUT ME
+              </h2>
+</div>
+<div class="bg-blue-100 text-blue-700 font-pixel text-xs px-3 py-1.5 rounded-md border border-blue-300">
+              BIO &amp; LEADERSHIP TIMELINE
+            </div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Left Column: Hanging ID Card & Personal Profile (4 Cols) -->
+<div class="lg:col-span-4 flex flex-col items-center">
+<!-- Yellow Hanging Lanyard ID Badge -->
+<div class="relative w-full max-w-xs transform hover:rotate-1 transition-transform">
+<!-- Lanyard strap -->
+<div class="w-6 h-12 bg-amber-400 border-x-2 border-slate-900 mx-auto -mt-10 mb-[-4px]"></div>
+<!-- ID badge sleeve -->
+<div class="bg-amber-400 p-3.5 rounded-2xl border-3 border-slate-900 shadow-hard">
+<div class="bg-white rounded-xl p-4 border-2 border-slate-900 flex flex-col items-center text-center">
+<!-- Portrait Frame using provided snapshot reference -->
+<div class="relative w-40 h-44 rounded-xl overflow-hidden border-2 border-slate-900 shadow-inner mb-3 bg-slate-100 group">
+<img alt="Najwa Santang Wangi Reference Preview" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB288buAS7HZVU4Aa1koiDCcfL81mKrFqtMBigU5l1L_g3OF8RMxC8B1l6KYVwbwwmTSd15CnWAVKcXA9W_iQjH4aO6F8J4yAtZUVu9BrFlYWGrptYrBV7L5cZlgE-YTJrF-QkrUr1fqWpIonq7ubJYQJF6H64yQD6Fu448NO9so1dGyimvl3Dwz4QaPTr-ru9xzJ0O__o1LMGvn-UZIGrB9rC_hQPO2RTNTizO4Lf8fR5APHx8MvE9">
+<div class="absolute bottom-1 right-1 bg-yellow-400 text-slate-900 font-pixel text-[9px] px-1.5 py-0.5 rounded border border-slate-900">
+                        IT-PLN
+                      </div>
+</div>
+<!-- Badge Details -->
+<h3 class="font-display font-extrabold text-slate-900 text-lg">Najwa Santang W.</h3>
+<p class="text-xs text-blue-600 font-semibold mb-3">S1 Teknik Informatika</p>
+<!-- Torn Biodata Slip -->
+<div class="w-full bg-slate-50 border border-dashed border-slate-400 p-3 rounded-lg text-left text-xs space-y-1 font-mono">
+<div class="flex justify-between">
+<span class="text-slate-500">DOMISILI:</span>
+<span class="font-bold text-slate-800">Bekasi, ID</span>
+</div>
+<div class="flex justify-between">
+<span class="text-slate-500">KAMPUS:</span>
+<span class="font-bold text-slate-800">IT-PLN '26</span>
+</div>
+<div class="flex justify-between">
+<span class="text-slate-500">FOCUS:</span>
+<span class="font-bold text-pink-600">Tech &amp; PDD</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Masking Tape Quote Memo - DRAGGABLE -->
+<div class="tactile-draggable relative mt-6 w-full max-w-xs bg-yellow-100/95 border border-yellow-300 p-4 rounded-lg shadow-sm group" data-base-rotation="0" data-draggable="true" style="transform: translate3d(0px, 0px, 0px) rotate(0deg);">
+<div class="masking-tape absolute -top-3 left-1/2 -translate-x-1/2 w-28 h-6 pointer-events-none"></div>
+<div class="drag-hint-badge absolute -top-6 -right-2 bg-slate-900 text-yellow-300 font-pixel text-[8px] px-2 py-0.5 rounded shadow-sm border border-yellow-400">
+  ✦ drag me!
+</div>
+<button class="tactile-reset-btn absolute -bottom-2.5 -right-2 bg-white text-slate-800 font-pixel text-[8px] px-1.5 py-0.5 rounded-full border border-slate-900 shadow-sm hover:bg-yellow-300" title="Reset posisi" type="button">
+  ↺ reset
+</button>
+<p class="font-hand text-lg text-slate-700 font-bold text-center leading-snug pointer-events-none">
+                  "Menghubungkan logika komputasi dengan kreativitas visual untuk menghasilkan solusi nyata."
+                </p>
+</div>
+</div>
+<!-- Right Column: Biography & Structured Experience (8 Cols) -->
+<div class="lg:col-span-8 space-y-8">
+<!-- Personal Narrative Card -->
+<div class="bg-blue-50/60 border-2 border-blue-200 rounded-xl p-5 sm:p-6 relative">
+<span class="font-pixel text-[10px] text-blue-500 uppercase tracking-widest block mb-2">✦ CANDIDATE SUMMARY</span>
+<p class="text-slate-700 text-sm sm:text-base leading-relaxed">
+                  Mahasiswi aktif <strong>S1 Teknik Informatika di Institut Teknologi PLN</strong> dengan rekam jejak kepemimpinan aktif sejak bangku SMA. Berpengalaman memimpin seksi bidang di OSIS, mengoordinasi kepanitiaan event berskala se-Jabodetabek, dan menggarap desain visual publikasi (PDD). Memiliki ketertarikan tinggi pada rekayasa perangkat lunak, teknologi interaktif, serta manajemen event yang terstruktur dan berdampak.
+                </p>
+</div>
+<!-- Experience Sub-columns -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Sub-column 1: Leadership & Events -->
+<div class="space-y-4">
+<h4 class="font-display font-extrabold text-base text-slate-900 flex items-center gap-2 border-b-2 border-yellow-400 pb-1.5">
+<span>👑</span> KEPEMIMPINAN &amp; EVENT
+                  </h4>
+<!-- Timeline Item 1 -->
+<div class="bg-white border-2 border-slate-900 rounded-xl p-4 shadow-hardSm relative">
+<span class="font-pixel text-[9px] bg-pink-100 text-pink-700 px-2 py-0.5 rounded border border-pink-300">
+                      Okt 2024 – Okt 2025
+                    </span>
+<h5 class="font-display font-bold text-slate-900 text-sm mt-2">Kepala Seksi Bidang (Kasekbid) 2</h5>
+<p class="text-xs font-semibold text-blue-600 mb-1.5">OSIS SMA Korpri Bekasi</p>
+<p class="text-xs text-slate-600 leading-normal">
+                      Mengoordinasi sub-bidang kedisiplinan, Paskibra, GDN (Gerakan Disiplin Nasional), dan K7 lingkungan sekolah. Bertanggung jawab atas ketertiban umum dan pembinaan karakter siswa.
+                    </p>
+</div>
+<!-- Timeline Item 2 -->
+<div class="bg-white border-2 border-slate-900 rounded-xl p-4 shadow-hardSm relative">
+<span class="font-pixel text-[9px] bg-blue-100 text-blue-700 px-2 py-0.5 rounded border border-blue-300">
+                      Feb 2025
+                    </span>
+<h5 class="font-display font-bold text-slate-900 text-sm mt-2">Penanggung Jawab Lomba LKBB</h5>
+<p class="text-xs font-semibold text-blue-600 mb-1.5">PORSENI &amp; MIPA XII se-Jabodetabek</p>
+<p class="text-xs text-slate-600 leading-normal">
+                      Memimpin jalannya kompetisi baris-berbaris tingkat Jabodetabek, mengelola teknis juri dari instansi militer, dan memastikan rundown berjalan tepat waktu dengan 20+ regu peserta.
+                    </p>
+</div>
+</div>
+<!-- Sub-column 2: Creative PDD & Education -->
+<div class="space-y-4">
+<h4 class="font-display font-extrabold text-base text-slate-900 flex items-center gap-2 border-b-2 border-blue-500 pb-1.5">
+<span>🎨</span> PDD &amp; PENDIDIKAN
+                  </h4>
+<!-- Creative PDD Item -->
+<div class="bg-white border-2 border-slate-900 rounded-xl p-4 shadow-hardSm relative">
+<span class="font-pixel text-[9px] bg-purple-100 text-purple-700 px-2 py-0.5 rounded border border-purple-300">
+                      Feb 2025
+                    </span>
+<h5 class="font-display font-bold text-slate-900 text-sm mt-2">Tim PDD &amp; Publikasi Desain</h5>
+<p class="text-xs font-semibold text-purple-600 mb-1.5">PORSENI &amp; MIPA XII se-Jabodetabek</p>
+<p class="text-xs text-slate-600 leading-normal">
+                      Menghasilkan aset visual proposal sponsorship, id card panitia, banner panggung utama, serta feed dokumentasi media sosial selama event berlangsung.
+                    </p>
+</div>
+<!-- Education Info Card -->
+<div class="bg-white border-2 border-slate-900 rounded-xl p-4 shadow-hardSm relative">
+<span class="font-pixel text-[9px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded border border-emerald-300">
+                      2026 – Sekarang
+                    </span>
+<h5 class="font-display font-bold text-slate-900 text-sm mt-2">Institut Teknologi PLN</h5>
+<p class="text-xs font-semibold text-emerald-700 mb-1.5">S1 Teknik Informatika (Fakultas Telematika Energi)</p>
+<p class="text-xs text-slate-600 leading-normal">
+                      Fokus pada algoritma pemrograman dasar, struktur data, computational thinking, dan perancangan UI/UX aplikasi digital.
+                    </p>
+</div>
+</div>
+</div>
+<!-- Soft Skills Tags & Polaroid Scan Card -->
+<div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-slate-200">
+<div class="flex flex-wrap gap-2">
+<span class="bg-amber-100 text-amber-900 font-display font-bold text-xs px-3 py-1 rounded-full border border-amber-300">
+                    ★ Komunikasi Efektif
+                  </span>
+<span class="bg-pink-100 text-pink-900 font-display font-bold text-xs px-3 py-1 rounded-full border border-pink-300">
+                    ★ Kerja Sama Tim
+                  </span>
+<span class="bg-blue-100 text-blue-900 font-display font-bold text-xs px-3 py-1 rounded-full border border-blue-300">
+                    ★ Problem Solving
+                  </span>
+<span class="bg-emerald-100 text-emerald-900 font-display font-bold text-xs px-3 py-1 rounded-full border border-emerald-300">
+                    ★ Manajemen Waktu
+                  </span>
+</div>
+<!-- Tilted Mini Polaroid Stamp - DRAGGABLE -->
+<div class="tactile-draggable bg-white p-2.5 border-2 border-slate-900 shadow-hardSm rounded flex items-center gap-2 group" data-base-rotation="3" data-draggable="true" style="transform: translate3d(0px, 0px, 0px) rotate(3deg);">
+<div class="drag-hint-badge absolute -top-5 right-0 bg-slate-900 text-yellow-300 font-pixel text-[8px] px-1.5 py-0.5 rounded shadow-sm border border-yellow-400">
+  ✦ drag!
+</div>
+<button class="tactile-reset-btn absolute -bottom-2 -left-2 bg-white text-slate-800 font-pixel text-[8px] px-1.5 py-0.5 rounded-full border border-slate-900 shadow-sm hover:bg-yellow-300" title="Reset posisi" type="button">
+  ↺
+</button>
+<div class="w-8 h-8 bg-slate-900 text-white flex items-center justify-center font-pixel text-xs rounded pointer-events-none">
+                    QR
+                  </div>
+<div class="pointer-events-none">
+<span class="font-hand font-bold text-xs block text-slate-800">scan to connect! ✨</span>
+<span class="font-pixel text-[8px] text-blue-600">LINKEDIN READY</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: About & Experience Section -->
+<!-- BEGIN: Contents & Projects Showcase -->
+<section class="relative" id="projects">
+<!-- Section Header on Desk -->
+<div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+<div>
+<div class="inline-flex items-center gap-2 bg-yellow-400 text-slate-900 font-pixel text-xs px-3 py-1 rounded border-2 border-slate-900 shadow-hardSm mb-2">
+<span>PORTFOLIO SHOWCASE</span> ✦
+          </div>
+<h2 class="font-display font-extrabold text-4xl sm:text-5xl text-white tracking-tight drop-shadow-md">
+            CONTENTS &gt;&gt;&gt;
+          </h2>
+</div>
+<p class="font-hand font-bold text-2xl text-yellow-300 transform -rotate-2">
+          koleksi project, event &amp; karya desain ✂
+        </p>
+</div>
+<!-- Scrapbook 4-Card Staggered Tilted Grid with Draggable Tactile Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10">
+<!-- CARD 01: LKBB Event Management - DRAGGABLE -->
+<article class="tactile-draggable relative group rounded-2xl" data-base-rotation="-2" data-draggable="true" style="transform: translate3d(0px, 0px, 0px) rotate(-2deg);">
+<!-- Reset Pill -->
+<button class="tactile-reset-btn absolute -top-4 right-4 z-30 bg-white text-slate-800 font-pixel text-[9px] px-2 py-0.5 rounded-full border border-slate-900 shadow-sm hover:bg-yellow-300" title="Reset posisi" type="button">
+  ↺ reset posisi
+</button>
+<!-- Drag hint indicator -->
+<div class="drag-hint-badge absolute -top-6 left-4 z-30 bg-slate-900 text-yellow-300 font-pixel text-[9px] px-2.5 py-0.5 rounded shadow-sm border border-yellow-400">
+  ✦ Drag me!
+</div>
+<!-- Pink Binder Clip at Top -->
+<div class="absolute -top-5 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center pointer-events-none">
+<div class="w-6 h-7 border-2 border-slate-300 rounded-t-full mb-[-4px]"></div>
+<div class="w-12 h-6 bg-clipPink border-2 border-slate-900 rounded shadow-md"></div>
+</div>
+<!-- Card Sheet -->
+<div class="bg-paper p-6 pt-9 rounded-2xl border-3 border-slate-900 shadow-paper3d flex flex-col h-full justify-between">
+<div>
+<!-- Visual Mockup Area -->
+<div class="bg-gradient-to-tr from-blue-600 to-indigo-500 rounded-xl p-5 text-white border-2 border-slate-900 shadow-inner mb-4 relative overflow-hidden pointer-events-none">
+<div class="absolute top-2 right-2 bg-white/20 backdrop-blur font-pixel text-[10px] px-2 py-0.5 rounded">
+                  2025 EVENT
+                </div>
+<div class="text-4xl mb-2">🎖️</div>
+<h4 class="font-display font-extrabold text-lg text-white">LKBB PORSENI XII</h4>
+<p class="text-xs text-blue-100">Manajemen Teknis Lomba Baris-Berbaris Tingkat Jabodetabek</p>
+</div>
+<!-- Card Number Badge & Title -->
+<div class="flex items-center gap-2 mb-2 pointer-events-none">
+<span class="font-pixel text-xs bg-yellow-400 text-slate-900 px-2 py-0.5 rounded border border-slate-900 font-bold">01</span>
+<h3 class="font-display font-extrabold text-xl text-slate-900">Event Leadership &amp; LKBB</h3>
+</div>
+<p class="text-xs text-slate-600 leading-relaxed mb-4 pointer-events-none">
+                Memimpin koordinasi lapangan untuk 20+ pleton peserta LKBB, perumusan juknis penilaian bersama dewan juri, serta pengaturan arus mobilisasi massa dan logistik lapangan secara presisi.
+              </p>
+</div>
+<!-- Footer Meta -->
+<div class="pt-3 border-t border-dashed border-slate-300 flex flex-wrap gap-2 pointer-events-none">
+<span class="text-[11px] font-semibold bg-blue-100 text-blue-800 px-2 py-0.5 rounded">Leadership</span>
+<span class="text-[11px] font-semibold bg-slate-100 text-slate-700 px-2 py-0.5 rounded">Crowd Control</span>
+<span class="text-[11px] font-semibold bg-slate-100 text-slate-700 px-2 py-0.5 rounded">Technical Briefing</span>
+</div>
+</div>
+</article>
+<!-- CARD 02: PDD Visual & Sponsorship Kit - DRAGGABLE -->
+<article class="tactile-draggable relative group rounded-2xl" data-base-rotation="2" data-draggable="true" style="transform: translate3d(0px, 0px, 0px) rotate(2deg);">
+<!-- Reset Pill -->
+<button class="tactile-reset-btn absolute -top-4 right-4 z-30 bg-white text-slate-800 font-pixel text-[9px] px-2 py-0.5 rounded-full border border-slate-900 shadow-sm hover:bg-yellow-300" title="Reset posisi" type="button">
+  ↺ reset posisi
+</button>
+<!-- Drag hint indicator -->
+<div class="drag-hint-badge absolute -top-6 left-4 z-30 bg-slate-900 text-yellow-300 font-pixel text-[9px] px-2.5 py-0.5 rounded shadow-sm border border-yellow-400">
+  ✦ Drag me!
+</div>
+<!-- Pink Binder Clip -->
+<div class="absolute -top-5 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center pointer-events-none">
+<div class="w-6 h-7 border-2 border-slate-300 rounded-t-full mb-[-4px]"></div>
+<div class="w-12 h-6 bg-clipPink border-2 border-slate-900 rounded shadow-md"></div>
+</div>
+<!-- Card Sheet -->
+<div class="bg-paper p-6 pt-9 rounded-2xl border-3 border-slate-900 shadow-paper3d flex flex-col h-full justify-between">
+<div>
+<!-- Visual Mockup Area -->
+<div class="bg-gradient-to-tr from-pink-500 to-rose-400 rounded-xl p-5 text-white border-2 border-slate-900 shadow-inner mb-4 relative overflow-hidden pointer-events-none">
+<div class="absolute top-2 right-2 bg-white/20 backdrop-blur font-pixel text-[10px] px-2 py-0.5 rounded">
+                  DESIGN KIT
+                </div>
+<div class="text-4xl mb-2">🎨</div>
+<h4 class="font-display font-extrabold text-lg text-white">Visual &amp; Publication Identity</h4>
+<p class="text-xs text-pink-100">Branding proposal, sertifikat, dan perlengkapan kontingen</p>
+</div>
+<!-- Card Number Badge & Title -->
+<div class="flex items-center gap-2 mb-2 pointer-events-none">
+<span class="font-pixel text-xs bg-pink-400 text-white px-2 py-0.5 rounded border border-slate-900 font-bold">02</span>
+<h3 class="font-display font-extrabold text-xl text-slate-900">PDD &amp; Identity Design</h3>
+</div>
+<p class="text-xs text-slate-600 leading-relaxed mb-4 pointer-events-none">
+                Penyusunan modul visual publikasi event akbar sekolah, perancangan proposal resmi penarik sponsor korporasi, serta materi media sosial interaktif selama periode pendaftaran.
+              </p>
+</div>
+<!-- Footer Meta -->
+<div class="pt-3 border-t border-dashed border-slate-300 flex flex-wrap gap-2 pointer-events-none">
+<span class="text-[11px] font-semibold bg-pink-100 text-pink-800 px-2 py-0.5 rounded">Canva &amp; Layouting</span>
+<span class="text-[11px] font-semibold bg-slate-100 text-slate-700 px-2 py-0.5 rounded">Visual Identity</span>
+<span class="text-[11px] font-semibold bg-slate-100 text-slate-700 px-2 py-0.5 rounded">Social Media Assets</span>
+</div>
+</div>
+</article>
+<!-- CARD 03: Student Discipline & OSIS System - DRAGGABLE -->
+<article class="tactile-draggable relative group rounded-2xl" data-base-rotation="-1" data-draggable="true" style="transform: translate3d(0px, 0px, 0px) rotate(-1deg);">
+<!-- Reset Pill -->
+<button class="tactile-reset-btn absolute -top-4 right-4 z-30 bg-white text-slate-800 font-pixel text-[9px] px-2 py-0.5 rounded-full border border-slate-900 shadow-sm hover:bg-yellow-300" title="Reset posisi" type="button">
+  ↺ reset posisi
+</button>
+<!-- Drag hint indicator -->
+<div class="drag-hint-badge absolute -top-6 left-4 z-30 bg-slate-900 text-yellow-300 font-pixel text-[9px] px-2.5 py-0.5 rounded shadow-sm border border-yellow-400">
+  ✦ Drag me!
+</div>
+<!-- Pink Binder Clip -->
+<div class="absolute -top-5 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center pointer-events-none">
+<div class="w-6 h-7 border-2 border-slate-300 rounded-t-full mb-[-4px]"></div>
+<div class="w-12 h-6 bg-clipPink border-2 border-slate-900 rounded shadow-md"></div>
+</div>
+<!-- Card Sheet -->
+<div class="bg-paper p-6 pt-9 rounded-2xl border-3 border-slate-900 shadow-paper3d flex flex-col h-full justify-between">
+<div>
+<!-- Visual Mockup Area -->
+<div class="bg-gradient-to-tr from-amber-500 to-yellow-400 rounded-xl p-5 text-slate-900 border-2 border-slate-900 shadow-inner mb-4 relative overflow-hidden pointer-events-none">
+<div class="absolute top-2 right-2 bg-white/40 backdrop-blur font-pixel text-[10px] px-2 py-0.5 rounded">
+                  OSIS 24/25
+                </div>
+<div class="text-4xl mb-2">📋</div>
+<h4 class="font-display font-extrabold text-lg text-slate-900">SOP Tata Tertib &amp; 7K</h4>
+<p class="text-xs text-amber-900">Standardisasi kedisiplinan dan sistem kepengurusan siswa</p>
+</div>
+<!-- Card Number Badge & Title -->
+<div class="flex items-center gap-2 mb-2 pointer-events-none">
+<span class="font-pixel text-xs bg-blue-500 text-white px-2 py-0.5 rounded border border-slate-900 font-bold">03</span>
+<h3 class="font-display font-extrabold text-xl text-slate-900">Governance &amp; Program Kerja OSIS</h3>
+</div>
+<p class="text-xs text-slate-600 leading-relaxed mb-4 pointer-events-none">
+                Pelaksanaan pengawasan ketertiban upacara mingguan, rekapitulasi data absensi kedisiplinan siswa berbasis spreadsheet, dan pembinaan berkala bagi anggota Paskibra sekolah.
+              </p>
+</div>
+<!-- Footer Meta -->
+<div class="pt-3 border-t border-dashed border-slate-300 flex flex-wrap gap-2 pointer-events-none">
+<span class="text-[11px] font-semibold bg-amber-100 text-amber-800 px-2 py-0.5 rounded">SOP Development</span>
+<span class="text-[11px] font-semibold bg-slate-100 text-slate-700 px-2 py-0.5 rounded">Data Rekap</span>
+<span class="text-[11px] font-semibold bg-slate-100 text-slate-700 px-2 py-0.5 rounded">Evaluasi Program</span>
+</div>
+</div>
+</article>
+<!-- CARD 04: Informatics & Computational Foundations - DRAGGABLE -->
+<article class="tactile-draggable relative group rounded-2xl" data-base-rotation="3" data-draggable="true" style="transform: translate3d(0px, 0px, 0px) rotate(3deg);">
+<!-- Reset Pill -->
+<button class="tactile-reset-btn absolute -top-4 right-4 z-30 bg-white text-slate-800 font-pixel text-[9px] px-2 py-0.5 rounded-full border border-slate-900 shadow-sm hover:bg-yellow-300" title="Reset posisi" type="button">
+  ↺ reset posisi
+</button>
+<!-- Drag hint indicator -->
+<div class="drag-hint-badge absolute -top-6 left-4 z-30 bg-slate-900 text-yellow-300 font-pixel text-[9px] px-2.5 py-0.5 rounded shadow-sm border border-yellow-400">
+  ✦ Drag me!
+</div>
+<!-- Pink Binder Clip -->
+<div class="absolute -top-5 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center pointer-events-none">
+<div class="w-6 h-7 border-2 border-slate-300 rounded-t-full mb-[-4px]"></div>
+<div class="w-12 h-6 bg-clipPink border-2 border-slate-900 rounded shadow-md"></div>
+</div>
+<!-- Card Sheet -->
+<div class="bg-paper p-6 pt-9 rounded-2xl border-3 border-slate-900 shadow-paper3d flex flex-col h-full justify-between">
+<div>
+<!-- Visual Mockup Area -->
+<div class="bg-gradient-to-tr from-cyan-600 to-blue-700 rounded-xl p-5 text-white border-2 border-slate-900 shadow-inner mb-4 relative overflow-hidden pointer-events-none">
+<div class="absolute top-2 right-2 bg-white/20 backdrop-blur font-pixel text-[10px] px-2 py-0.5 rounded">
+                  TECH LAB
+                </div>
+<div class="text-4xl mb-2">💻</div>
+<h4 class="font-display font-extrabold text-lg text-white">Algorithm &amp; Informatics Works</h4>
+<p class="text-xs text-cyan-100">Eksplorasi logika algoritma C++ dan prototyping website</p>
+</div>
+<!-- Card Number Badge & Title -->
+<div class="flex items-center gap-2 mb-2 pointer-events-none">
+<span class="font-pixel text-xs bg-emerald-500 text-white px-2 py-0.5 rounded border border-slate-900 font-bold">04</span>
+<h3 class="font-display font-extrabold text-xl text-slate-900">Informatics &amp; Software Logic</h3>
+</div>
+<p class="text-xs text-slate-600 leading-relaxed mb-4 pointer-events-none">
+                Pengerjaan studi kasus algoritma terstruktur di IT-PLN, pemahaman computational logic untuk pemecahan masalah teknis, serta eksplorasi antarmuka digital yang ramah pengguna.
+              </p>
+</div>
+<!-- Footer Meta -->
+<div class="pt-3 border-t border-dashed border-slate-300 flex flex-wrap gap-2 pointer-events-none">
+<span class="text-[11px] font-semibold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">C++ Dasar</span>
+<span class="text-[11px] font-semibold bg-slate-100 text-slate-700 px-2 py-0.5 rounded">Logic &amp; Flowchart</span>
+<span class="text-[11px] font-semibold bg-slate-100 text-slate-700 px-2 py-0.5 rounded">UI/UX Thinking</span>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- END: Contents & Projects Showcase -->
+<!-- BEGIN: Skills & Tools Dock -->
+<section class="relative" id="skills">
+<!-- Graph Paper Pinned Dock -->
+<div class="bg-graph-paper rounded-3xl p-6 sm:p-10 border-4 border-slate-900 shadow-paper3d relative">
+<!-- Pushpin Top Center -->
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-red-500 border-2 border-slate-900 shadow-md flex items-center justify-center">
+<span class="w-2 h-2 rounded-full bg-white"></span>
+</div>
+<div class="text-center max-w-xl mx-auto mb-8">
+<div class="inline-block bg-pink-100 text-pink-700 font-pixel text-xs px-3 py-1 rounded border border-pink-300 mb-2">
+            TOOLBOX &amp; COMPETENCY
+          </div>
+<h2 class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900">
+            SOFTWARE &amp; KEAHLIAN TEKNIS
+          </h2>
+<p class="text-slate-600 text-sm mt-1">Alat kerja produktivitas visual, administrasi, dan komputasi harian.</p>
+</div>
+<!-- Software Grid Tiles -->
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+<!-- Canva -->
+<div class="bg-white border-2 border-slate-900 rounded-2xl p-4 text-center shadow-hardSm hover:shadow-hard hover:-translate-y-1 transition-all">
+<div class="w-12 h-12 mx-auto rounded-xl bg-gradient-to-tr from-cyan-400 to-blue-500 flex items-center justify-center text-white font-display font-extrabold text-xl border-2 border-slate-900 shadow-sm mb-2">
+              Ca
+            </div>
+<h4 class="font-display font-bold text-xs text-slate-800">Canva</h4>
+<p class="text-[10px] text-slate-500">Visual &amp; Feed</p>
+</div>
+<!-- CapCut -->
+<div class="bg-white border-2 border-slate-900 rounded-2xl p-4 text-center shadow-hardSm hover:shadow-hard hover:-translate-y-1 transition-all">
+<div class="w-12 h-12 mx-auto rounded-xl bg-slate-900 flex items-center justify-center text-white font-display font-extrabold text-xl border-2 border-slate-900 shadow-sm mb-2">
+              ✂
+            </div>
+<h4 class="font-display font-bold text-xs text-slate-800">CapCut</h4>
+<p class="text-[10px] text-slate-500">Video Editing</p>
+</div>
+<!-- MS Word -->
+<div class="bg-white border-2 border-slate-900 rounded-2xl p-4 text-center shadow-hardSm hover:shadow-hard hover:-translate-y-1 transition-all">
+<div class="w-12 h-12 mx-auto rounded-xl bg-blue-600 flex items-center justify-center text-white font-display font-extrabold text-xl border-2 border-slate-900 shadow-sm mb-2">
+              W
+            </div>
+<h4 class="font-display font-bold text-xs text-slate-800">MS Word</h4>
+<p class="text-[10px] text-slate-500">Proposal &amp; Juknis</p>
+</div>
+<!-- MS Excel -->
+<div class="bg-white border-2 border-slate-900 rounded-2xl p-4 text-center shadow-hardSm hover:shadow-hard hover:-translate-y-1 transition-all">
+<div class="w-12 h-12 mx-auto rounded-xl bg-emerald-600 flex items-center justify-center text-white font-display font-extrabold text-xl border-2 border-slate-900 shadow-sm mb-2">
+              X
+            </div>
+<h4 class="font-display font-bold text-xs text-slate-800">MS Excel</h4>
+<p class="text-[10px] text-slate-500">Data &amp; Jadwal</p>
+</div>
+<!-- MS PowerPoint -->
+<div class="bg-white border-2 border-slate-900 rounded-2xl p-4 text-center shadow-hardSm hover:shadow-hard hover:-translate-y-1 transition-all">
+<div class="w-12 h-12 mx-auto rounded-xl bg-orange-600 flex items-center justify-center text-white font-display font-extrabold text-xl border-2 border-slate-900 shadow-sm mb-2">
+              P
+            </div>
+<h4 class="font-display font-bold text-xs text-slate-800">PowerPoint</h4>
+<p class="text-[10px] text-slate-500">Presentasi</p>
+</div>
+<!-- C++ Code -->
+<div class="bg-white border-2 border-slate-900 rounded-2xl p-4 text-center shadow-hardSm hover:shadow-hard hover:-translate-y-1 transition-all">
+<div class="w-12 h-12 mx-auto rounded-xl bg-indigo-600 flex items-center justify-center text-white font-pixel font-bold text-sm border-2 border-slate-900 shadow-sm mb-2">
+              C++
+            </div>
+<h4 class="font-display font-bold text-xs text-slate-800">Informatics</h4>
+<p class="text-[10px] text-slate-500">Logic &amp; Coding</p>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Skills & Tools Dock -->
+<!-- BEGIN: Contact & Sticky Note Section -->
+<section class="relative flex justify-center" id="contact">
+<!-- Big Tilted Sticky Note Pad - DRAGGABLE -->
+<div class="tactile-draggable w-full max-w-2xl bg-amber-200 border-4 border-slate-900 rounded-3xl p-8 sm:p-12 shadow-hardLg group" data-base-rotation="-1" data-draggable="true" style="transform: translate3d(0px, 0px, 0px) rotate(-1deg);">
+<!-- Drag hint indicator & Reset Button -->
+<div class="drag-hint-badge absolute -top-8 left-6 bg-slate-900 text-yellow-300 font-pixel text-[10px] px-3 py-1 rounded shadow-sm border border-yellow-400 z-30">
+  ✦ Drag me anywhere!
+</div>
+<button class="tactile-reset-btn absolute -top-8 right-6 bg-white text-slate-900 font-pixel text-[10px] px-3 py-1 rounded-full border-2 border-slate-900 shadow-hardSm hover:bg-yellow-300 z-30" title="Kembalikan posisi" type="button">
+  ↺ rapikan / reset
+</button>
+<!-- Masking Tape Sticking the Note to the Desk -->
+<div class="masking-tape absolute -top-5 left-1/2 -translate-x-1/2 w-44 h-8 z-20 pointer-events-none"></div>
+<div class="text-center space-y-4">
+<div class="inline-flex items-center gap-1 text-xs font-pixel bg-white px-3 py-1 rounded-full border-2 border-slate-900 shadow-hardSm pointer-events-none">
+<span>GET IN TOUCH</span> ✦
+          </div>
+<h2 class="font-display font-extrabold text-3xl sm:text-5xl text-slate-900 tracking-tight pointer-events-none">
+            LET'S WORK TOGETHER!
+          </h2>
+<p class="text-slate-800 text-sm sm:text-base max-w-md mx-auto leading-relaxed pointer-events-none">
+            Terbuka untuk kolaborasi kepanitiaan, proyek desain PDD, magang teknologi, atau diskusi seputar perkuliahan Teknik Informatika.
+          </p>
+<!-- Contact Channels Button Row -->
+<div class="pt-4 flex flex-wrap justify-center gap-3 sm:gap-4 relative z-10">
+<!-- Email -->
+<a class="bg-white hover:bg-slate-50 text-slate-900 font-display font-extrabold text-sm px-5 py-3 rounded-xl border-2 border-slate-900 shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-1 active:translate-y-1 transition-all flex items-center gap-2" href="mailto:najwasantangwangi@gmail.com">
+<span>✉</span> najwasantangwangi@gmail.com
+            </a>
+<!-- WhatsApp -->
+<a class="bg-emerald-400 hover:bg-emerald-300 text-slate-900 font-display font-extrabold text-sm px-5 py-3 rounded-xl border-2 border-slate-900 shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-1 active:translate-y-1 transition-all flex items-center gap-2" href="https://wa.me/6282112528445" rel="noopener noreferrer" target="_blank">
+<span>💬</span> 082112528445
+            </a>
+<!-- LinkedIn -->
+<a class="bg-blue-500 hover:bg-blue-400 text-white font-display font-extrabold text-sm px-5 py-3 rounded-xl border-2 border-slate-900 shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-1 active:translate-y-1 transition-all flex items-center gap-2" href="https://linkedin.com/in/najwasantangw" rel="noopener noreferrer" target="_blank">
+<span>🔗</span> LinkedIn Profile
+            </a>
+</div>
+<!-- Bottom handwritten postscript -->
+<p class="font-hand font-bold text-xl text-slate-700 pt-3 pointer-events-none">
+            ~ Najwa Santang Wangi • Bekasi, Jawa Barat
+          </p>
+</div>
+</div>
+</section>
+<!-- END: Contact & Sticky Note Section -->
+</main>
+<!-- BEGIN: Footer Mat Accent -->
+<footer class="max-w-4xl mx-auto px-4 text-center">
+<div class="inline-block bg-slate-900/60 backdrop-blur text-white/80 border border-white/20 px-6 py-2 rounded-full font-mono text-xs">
+      © 2026 NAJWA SANTANG WANGI • CRAFTED WITH TACTILE DESIGN MAT &amp; GRAPH PAPER AESTHETIC
+    </div>
+</footer>
+<!-- END: Footer Mat Accent -->
+<!-- Interactive Tactile Drag & Hover Engine -->
+<script data-purpose="tactile-drag-engine">
+(function() {
+  let highestZ = 100;
+  const draggables = document.querySelectorAll('[data-draggable="true"]');
+  const globalResetBar = document.getElementById('global-reset-bar');
+  const globalResetBtn = document.getElementById('global-reset-btn');
+
+  function updateGlobalResetVisibility() {
+    const movedItems = document.querySelectorAll('.tactile-draggable.is-moved');
+    if (movedItems.length > 0) {
+      globalResetBar.classList.remove('translate-y-16', 'opacity-0', 'pointer-events-none');
+      globalResetBar.classList.add('translate-y-0', 'opacity-100');
+    } else {
+      globalResetBar.classList.add('translate-y-16', 'opacity-0', 'pointer-events-none');
+      globalResetBar.classList.remove('translate-y-0', 'opacity-100');
+    }
+  }
+
+  draggables.forEach(el => {
+    const baseRot = parseFloat(el.getAttribute('data-base-rotation') || '0');
+    // Set initial transform
+    let posX = 0;
+    let posY = 0;
+    let currentRot = baseRot;
+    
+    // Apply base initial styling
+    el.style.transform = `translate3d(0px, 0px, 0px) rotate(${baseRot}deg)`;
+
+    // Hover state management when not dragged
+    el.addEventListener('mouseenter', () => {
+      if (!el.classList.contains('is-dragging')) {
+        const hoverRot = baseRot * 0.5;
+        el.style.transform = `translate3d(${posX}px, ${posY - 8}px, 0px) scale(1.02) rotate(${hoverRot}deg)`;
+      }
+    });
+
+    el.addEventListener('mouseleave', () => {
+      if (!el.classList.contains('is-dragging')) {
+        el.style.transform = `translate3d(${posX}px, ${posY}px, 0px) rotate(${currentRot}deg)`;
+      }
+    });
+
+    // Reset button inside element
+    const resetBtn = el.querySelector('.tactile-reset-btn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        resetElement(el, baseRot);
+      });
+      // also stop pointer events from starting a drag
+      resetBtn.addEventListener('pointerdown', (e) => e.stopPropagation());
+    }
+
+    let isPointerDown = false;
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    let initialPosX = 0;
+    let initialPosY = 0;
+    let lastClientX = 0;
+    let velocityX = 0;
+
+    el.addEventListener('pointerdown', (e) => {
+      // Don't drag if clicking an anchor or button directly
+      if (e.target.closest('a') || e.target.closest('button')) {
+        return;
+      }
+      isPointerDown = true;
+      isDragging = false;
+      startX = e.clientX;
+      startY = e.clientY;
+      initialPosX = posX;
+      initialPosY = posY;
+      lastClientX = e.clientX;
+      velocityX = 0;
+
+      el.setPointerCapture(e.pointerId);
+    });
+
+    el.addEventListener('pointermove', (e) => {
+      if (!isPointerDown) return;
+      
+      const deltaX = e.clientX - startX;
+      const deltaY = e.clientY - startY;
+      const distance = Math.hypot(deltaX, deltaY);
+
+      if (!isDragging && distance > 5) {
+        isDragging = true;
+        highestZ += 1;
+        el.style.zIndex = highestZ;
+        el.classList.add('is-dragging');
+        el.classList.remove('is-settling');
+      }
+
+      if (isDragging) {
+        posX = initialPosX + deltaX;
+        posY = initialPosY + deltaY;
+
+        // Realistic paper tilt based on horizontal drag speed
+        velocityX = (e.clientX - lastClientX) * 0.4;
+        lastClientX = e.clientX;
+        const dynamicTilt = Math.max(-12, Math.min(12, baseRot + velocityX));
+
+        el.style.transform = `translate3d(${posX}px, ${posY}px, 0px) scale(1.05) rotate(${dynamicTilt}deg)`;
+      }
+    });
+
+    const handlePointerEnd = (e) => {
+      if (!isPointerDown) return;
+      isPointerDown = false;
+
+      if (isDragging) {
+        isDragging = false;
+        el.classList.remove('is-dragging');
+        el.classList.add('is-settling');
+
+        // Settling physics: slight relaxed random tilt between -2.5 and +2.5 deg around base
+        const randomSettleOffset = (Math.random() * 5 - 2.5);
+        currentRot = baseRot + randomSettleOffset;
+
+        el.style.transform = `translate3d(${posX}px, ${posY}px, 0px) rotate(${currentRot}deg)`;
+
+        // Mark as moved if displaced from start
+        if (Math.abs(posX) > 8 || Math.abs(posY) > 8) {
+          el.classList.add('is-moved');
+        } else {
+          el.classList.remove('is-moved');
+        }
+        updateGlobalResetVisibility();
+
+        setTimeout(() => {
+          el.classList.remove('is-settling');
+        }, 400);
+      }
+
+      try {
+        el.releasePointerCapture(e.pointerId);
+      } catch (err) {}
+    };
+
+    el.addEventListener('pointerup', handlePointerEnd);
+    el.addEventListener('pointercancel', handlePointerEnd);
+
+    // Prevent inadvertent link trigger if dragged
+    el.addEventListener('click', (e) => {
+      if (isDragging) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, true);
+  });
+
+  function resetElement(el, baseRot) {
+    el.classList.add('is-settling');
+    el.style.transform = `translate3d(0px, 0px, 0px) rotate(${baseRot}deg)`;
+    el.classList.remove('is-moved');
+    
+    // reset inner values
+    setTimeout(() => {
+      el.classList.remove('is-settling');
+    }, 450);
+
+    updateGlobalResetVisibility();
+  }
+
+  // Global reset button handler
+  if (globalResetBtn) {
+    globalResetBtn.addEventListener('click', () => {
+      draggables.forEach(el => {
+        const baseRot = parseFloat(el.getAttribute('data-base-rotation') || '0');
+        resetElement(el, baseRot);
+      });
+    });
+  }
+})();
+</script>
+
+
+
+
+</body></html>

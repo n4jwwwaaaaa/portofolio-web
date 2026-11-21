@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Fredoka", "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-pixel: "Silkscreen", monospace;
+  --font-hand: "Caveat", cursive;
+  --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-mat: #1D63B8;
+  --color-mat-dark: #144B91;
+  --color-desk: #8F5E36;
+  --color-desk-border: #5D3C1F;
+  --color-paper: #FDFBF7;
+  --color-clip-pink: #FF2D78;
+  --color-folder-yellow: #FFA800;
+
+  --shadow-hard: 4px 4px 0 #18181B;
+  --shadow-hard-lg: 8px 8px 0 #18181B;
+  --shadow-hard-sm: 2px 2px 0 #18181B;
+  --shadow-paper3d: 0 20px 40px -15px rgba(13, 38, 77, 0.45), 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+@layer base {
+  body {
+    font-family: var(--font-body);
+    color: #18181B;
+    background-color: #1A58A6;
+  }
+}
+
+/* Realistic cutting mat surface with dual grid lines */
+.bg-cutting-mat {
+  background-color: #1a58a6;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.14) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.14) 1px, transparent 1px),
+    linear-gradient(to right, rgba(255, 255, 255, 0.32) 2px, transparent 2px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.32) 2px, transparent 2px);
+  background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
+}
+
+/* Graph paper grid for drafting sheets */
+.bg-graph-paper {
+  background-color: #ffffff;
+  background-image:
+    linear-gradient(to right, rgba(29, 99, 184, 0.09) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(29, 99, 184, 0.09) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/* Masking tape strip */
+.masking-tape {
+  background: rgba(255, 248, 220, 0.9);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  border-left: 2px dashed rgba(210, 180, 140, 0.65);
+  border-right: 2px dashed rgba(210, 180, 140, 0.65);
+}
+
+/* 3D Sticker display text outline */
+.pixel-3d-blue {
+  text-shadow:
+    -3px -3px 0 #ffffff,
+    3px -3px 0 #ffffff,
+    -3px 3px 0 #ffffff,
+    3px 3px 0 #ffffff,
+    -3px 0 0 #ffffff,
+    3px 0 0 #ffffff,
+    0 -3px 0 #ffffff,
+    0 3px 0 #ffffff,
+    0 7px 0 #1D4ED8,
+    0 12px 18px rgba(29, 78, 216, 0.35);
+}
+
+/* Tactile draggable physics */
+.tactile-draggable {
+  touch-action: none;
+  user-select: none;
+  cursor: grab;
+  position: relative;
+  will-change: transform;
+  transition: box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tactile-draggable:hover {
+  box-shadow: 12px 16px 28px rgba(15, 23, 42, 0.25), 6px 6px 0 #18181B;
+}
+
+.tactile-draggable.is-dragging {
+  cursor: grabbing;
+  transition: none;
+  box-shadow: 20px 28px 45px rgba(15, 23, 42, 0.35), 8px 10px 0 #18181B;
+  opacity: 0.97;
+}
+
+.tactile-draggable.is-settling {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease-out;
+}
+
+@keyframes slow-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes tactile-letter-dance {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-1.5deg);
+  }
+  25% {
+    transform: translate3d(0, -10px, 0) rotate(2deg);
+  }
+  50% {
+    transform: translate3d(0, -2px, 0) rotate(-2deg);
+  }
+  75% {
+    transform: translate3d(0, -12px, 0) rotate(1.5deg);
+  }
+}
+
+.animate-slow-spin {
+  animation: slow-spin 10s linear infinite;
+}
+
+.animate-letter-dance {
+  display: inline-block;
+  will-change: transform;
+  animation: tactile-letter-dance 2.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-slow-spin,
+  .animate-letter-dance {
+    animation: none;
+  }
+  .tactile-draggable,
+  .tactile-draggable.is-settling {
+    transition: none;
+  }
+}
